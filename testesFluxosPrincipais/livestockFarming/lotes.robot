@@ -13,6 +13,7 @@ ${erro_campo_vazio}                     Campo obrigatório
 
 *** Keywords ***
 Clicar em lotes
+    Mouse Over                          class = menu-closed
     Click Element                       class = iconeSubMenu
     Click Link                          LOTES
     Carregando
