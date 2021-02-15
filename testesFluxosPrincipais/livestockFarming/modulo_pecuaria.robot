@@ -3,6 +3,10 @@ Documentation                           Modulo Pecuária
 Resource                                ../funcoes/carregando.robot
 
 *** Keywords ***
+
 Clicar em pecuaria
     Carregando
-    Click Link                          Pecuária
+    ${url}=   Get Location
+
+    Run Keyword if      '${url}'=='${Home Page}'        Click Link                          Pecuária
+    ...                     ELSE        Click Element        class = pecuaria
