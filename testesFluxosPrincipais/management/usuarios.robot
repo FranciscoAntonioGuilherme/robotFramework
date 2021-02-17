@@ -4,6 +4,11 @@ Resource                                ../funcoes/carregando.robot
 Library                                 DateTime
 
 *** Variables ***
+${nascimento}                           01012000
+${telefone}                             85912345678
+${funcao_usuario}                       Supervisor
+${tipo_de_contrato}                     Contrato Temporário
+
 ${nome_usuario}                         Usuário
 ${erro_campo_vazio}                     Campo obrigatório
 ${erro_campo_com_spaco}                 Não pode ser vazio
@@ -40,29 +45,56 @@ Tentar salvar sem dados preenchidos
     Should Contain                      ${mensagem_vazio_tipo_contrato.text}    ${erro_campo_vazio}
 
 Salvar com dados preenchidos
-    # ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
-    ${date}=                            Get Current Date                    result_format=%d-%m-%Y
+    ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${nome_usuario}
     Input Text                          id = family_name                    ${date}
 
-    Press Keys                          id = birthday                       01
-    Press Keys                          id = birthday                       \ue004
-    Press Keys                          id = birthday                       0
-    Press Keys                          id = birthday                       \ue004
-    Press Keys                          id = birthday                       1
-    Press Keys                          id = birthday                       \ue004
-    Press Keys                          id = birthday                       2
-    Press Keys                          id = birthday                       \ue004
-    Press Keys                          id = birthday                       0
-    Press Keys                          id = birthday                       \ue004
-    Press Keys                          id = birthday                       0
-    Press Keys                          id = birthday                       \ue004
-    Press Keys                          id = birthday                       1
+    FOR     ${i}    IN RANGE    ${nascimento}
+        Exit For Loop If    ${i} == 8
+        Press Keys                      id = birthday                       ${nascimento[${i}]}
+        Press Keys                      id = birthday                       \ue004
+    END
 
     Input Text                          id = cpf                            12345678901
-    Input Text                          id = email                          asdf@gmail.com
+    Input Text                          id = email                          User${date}@gmail.com
     Input Text                          id = password                       12345678
     Input Text                          id = same_password                  12345678
-    Press Keys                          id = phone_number                   12
-    Press Keys                          id = birthday                       \ue004
-    Press Keys                          id = phone_number                   345
+
+    FOR     ${i}    IN RANGE    11
+        Exit For Loop If    ${i} == 11
+        Press Keys                      id = phone_number                   ${telefone[${i}]}
+        Press Keys                      id = phone_number                   \ue004
+    END
+
+    Select From List By Index           id = permission                     2
+    Select From List By Value           id = role                           ${funcao_usuario}
+    Select From List By Value           id = contract_type                  ${tipo_de_contrato}
+
+    # Selecionando a úlitma opção do array
+    ${fazendas}=                        Execute JavaScript
+    ...                                 return document.querySelectorAll('div.cardChecks-item').length
+    ${element_fazenda}=                 Execute JavaScript
+    ...                                 return document.querySelectorAll('div.cardChecks-item')[${fazendas} - 1]
+    Click Element                       ${element_fazenda}
+
+    Click Button                        Salvar
+    Carregando
+
+Buscar usuario criado
+    ${date}=                            Get Current Date                    result_format=%d-%m-%Y
+    Input Text                          id = headers-search-name            ${date}
+    ${element_buscar}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll('div.table-head-search-container')[4]
+    Click Element                       ${element_buscar}
+    Carregando
+
+Editar usuario
+    Carregando
+    ${element_editar}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll('button:nth-child(1)')[2]
+    Click Element                       ${element_editar}
+    Carregando
+    Press Keys                          id = name                           Editado
+    Select From List By Value           id = role                           Tratorista
+    Select From List By Value           id = contract_type                  Contrato CLT
+    Click Button                        Salvar
