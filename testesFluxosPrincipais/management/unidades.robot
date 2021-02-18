@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation   UNIDADES
-Resource        ../funcoes/carregando.robot
+Resource        ../functions/carregando.robot
 
 *** Variables ***
 ${nome_nova_und}                        metro quadrado

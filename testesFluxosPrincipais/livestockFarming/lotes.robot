@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation                           LOTES
-Resource                                ../funcoes/carregando.robot
+Resource                                ../functions/carregando.robot
 
 *** Variables ***
 &{LOTE}                                 novoLote=LOTE 27102020

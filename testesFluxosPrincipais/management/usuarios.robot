@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation                           USUARIOS
-Resource                                ../funcoes/carregando.robot
+Resource                                ../functions/carregando.robot
 Library                                 DateTime
 
 *** Variables ***
@@ -36,7 +36,7 @@ Tentar salvar sem dados preenchidos
     ${mensagem_vazio_tipo_contrato}=    Get webElement                      name = invalid-feedback-contract_type
     Should Contain                      ${mensagem_vazio_nascimento.text}   ${erro_campo_vazio}
     Should Contain                      ${mensagem_vazio_CPF.text}          ${erro_campo_vazio}
-    Should Contain                      ${mensagem_vazio_email.text}       ${erro_campo_email}
+    Should Contain                      ${mensagem_vazio_email.text}        ${erro_campo_email}
     Should Contain                      ${mensagem_vazio_senha.text}        ${erro_campo_vazio}
     Should Contain                      ${mensagem_vazio_repetir_senha.text}    ${erro_campo_vazio}
     Should Contain                      ${mensagem_vazio_telefone.text}     ${erro_campo_vazio}
@@ -44,7 +44,7 @@ Tentar salvar sem dados preenchidos
     Should Contain                      ${mensagem_vazio_funcao.text}       ${erro_campo_com_spaco}
     Should Contain                      ${mensagem_vazio_tipo_contrato.text}    ${erro_campo_vazio}
 
-Salvar com dados preenchidos
+Salvar dados preenchimento correto
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${nome_usuario}
     Input Text                          id = family_name                    ${date}

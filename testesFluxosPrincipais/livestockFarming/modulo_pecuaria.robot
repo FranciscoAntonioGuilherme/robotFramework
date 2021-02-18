@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation                           Modulo Pecuária
-Resource                                ../funcoes/carregando.robot
+Resource                                ../functions/carregando.robot
 
 *** Keywords ***
 

@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation                           Modulo Gestão
-Resource                                ../funcoes/carregando.robot
+Resource                                ../functions/carregando.robot
 
 *** Keywords ***
 Clicar em gestao

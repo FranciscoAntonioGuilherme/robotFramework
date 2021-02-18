@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation   Suite REBANHO
 
-Resource        ../funcoes/carregando.robot
-Resource        ../funcoes/data.robot
-Resource        ../funcoes/telefone.robot
+Resource        ../functions/carregando.robot
+Resource        ../functions/data.robot
+Resource        ../functions/telefone.robot
 
 *** Variables ***
 &{ANIMAL}                               tipo=""
