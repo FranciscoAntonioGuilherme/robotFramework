@@ -88,7 +88,7 @@ Buscar usuario criado
     Click Element                       ${element_buscar}
     Carregando
 
-Editar usuario
+Editar usuario criado
     Carregando
     ${element_editar}=                  Execute JavaScript
     ...                                 return document.querySelectorAll('button:nth-child(1)')[2]

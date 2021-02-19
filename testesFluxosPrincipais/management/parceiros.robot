@@ -42,8 +42,11 @@ Tentar salvar sem dados preenchidos
     Should Contain                      ${mensagem_vazio_cell_phone.text}   ${erro_campo_vazio}
     Should Contain                      ${mensagem_vazio_email.text}        ${erro_campo_email}
     Should Contain                      ${mensagem_vazio_cell_phone.text}   ${erro_campo_vazio}
+    Click Button                        Cancelar
+    Carregando
 
 Salvar dados preenchimento correto
+    parceiros.Clicar em novo
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${razao_social}${date}
     Input Text                          id = fantasy_name                   ${date}
@@ -74,3 +77,25 @@ Salvar dados preenchimento correto
     Input Text                          id = observation                    ${observacao}
 
     Click Button                        Salvar
+    Carregando
+    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+
+Buscar parceiro criado
+    ${date}=                            Get Current Date                    result_format=%d-%m-%Y
+    Input Text                          id = headers-search-name            ${date}
+    ${element_buscar}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll('div.table-head-search-container')[2]
+    Click Element                       ${element_buscar}
+    Carregando
+
+Editar parceiro criado
+    Carregando
+    ${element_editar}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll('button:nth-child(1)')[2]
+    Click Element                       ${element_editar}
+    Carregando
+    Press Keys                          id = name                           Editado
+    Press Keys                          id = observation                    Observação editada.
+    Click Button                        Salvar
+    Carregando
+    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
