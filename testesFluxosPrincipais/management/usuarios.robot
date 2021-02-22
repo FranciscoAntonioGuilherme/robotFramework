@@ -79,6 +79,9 @@ Salvar dados preenchimento correto
 
     Click Button                        Salvar
     Carregando
+    Carregando
+    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+    Element Text Should Be              class = top-bar-titulo              USUÁRIOS
 
 Buscar usuario criado
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y
@@ -98,3 +101,14 @@ Editar usuario criado
     Select From List By Value           id = role                           Tratorista
     Select From List By Value           id = contract_type                  Contrato CLT
     Click Button                        Salvar
+    Carregando
+    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+    Element Text Should Be              class = top-bar-titulo              USUÁRIOS
+
+Excluir usuario criado
+    usuarios.Buscar usuario criado
+    ${element_exluir}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll('button:nth-child(2)')[0]
+    Click Element                       ${element_exluir}
+    Click Button                        Sim
+    Carregando
