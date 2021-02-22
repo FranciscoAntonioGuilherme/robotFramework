@@ -22,6 +22,8 @@ ${erro_campo_email}                     Formatação de e-mail incorreta
 Clicar em parceiros
     Click Link                          Parceiros
     Carregando
+    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+    Element Text Should Be              class = top-bar-titulo              PARCEIROS
 
 Clicar em novo
     CLick Button                        NOVO
@@ -44,8 +46,10 @@ Tentar salvar sem dados preenchidos
     Should Contain                      ${mensagem_vazio_cell_phone.text}   ${erro_campo_vazio}
     Click Button                        Cancelar
     Carregando
+    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+    Element Text Should Be              class = top-bar-titulo              PARCEIROS
 
-Salvar dados preenchimento correto
+Salvar dados com preenchimento correto
     parceiros.Clicar em novo
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${razao_social}${date}
@@ -79,9 +83,10 @@ Salvar dados preenchimento correto
     Click Button                        Salvar
     Carregando
     Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+    Element Text Should Be              class = top-bar-titulo              PARCEIROS
 
 Buscar parceiro criado
-    ${date}=                            Get Current Date                    result_format=%d-%m-%Y
+    ${date}=                            Get Current Date                    result_format=%d-%m
     Input Text                          id = headers-search-name            ${date}
     ${element_buscar}=                  Execute JavaScript
     ...                                 return document.querySelectorAll('div.table-head-search-container')[2]
@@ -99,3 +104,12 @@ Editar parceiro criado
     Click Button                        Salvar
     Carregando
     Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+    Element Text Should Be              class = top-bar-titulo              PARCEIROS
+
+Excluir parceiro criado
+    parceiros.Buscar parceiro criado
+    ${element_exluir}=                  Execute JavaScript
+    ...                                 return document.getElementsByClassName('action-button-table-primary')[1]
+    Click Element                       ${element_exluir}
+    Click Button                        Sim
+    Carregando
