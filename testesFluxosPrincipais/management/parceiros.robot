@@ -89,14 +89,14 @@ Buscar parceiro criado
     ${date}=                            Get Current Date                    result_format=%d-%m
     Input Text                          id = headers-search-name            ${date}
     ${element_buscar}=                  Execute JavaScript
-    ...                                 return document.querySelectorAll('div.table-head-search-container')[2]
+    ...                                 return document.querySelector('button.btn-ghost')
     Click Element                       ${element_buscar}
     Carregando
 
 Editar parceiro criado
     Carregando
     ${element_editar}=                  Execute JavaScript
-    ...                                 return document.querySelectorAll('button:nth-child(1)')[2]
+    ...                                 return document.querySelector('button.action-button-table-primary')
     Click Element                       ${element_editar}
     Carregando
     Press Keys                          id = name                           Editado

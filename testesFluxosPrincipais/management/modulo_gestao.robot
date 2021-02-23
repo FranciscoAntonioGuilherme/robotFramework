@@ -9,3 +9,5 @@ Clicar em gestao
 
     Run Keyword if      '${url}'=='${Home Page}'        Click Link                          Gestão
     ...                     ELSE        Click Element        class = gestao
+
+    Carregando

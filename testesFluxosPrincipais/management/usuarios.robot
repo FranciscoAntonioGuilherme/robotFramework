@@ -44,7 +44,7 @@ Tentar salvar sem dados preenchidos
     Should Contain                      ${mensagem_vazio_funcao.text}       ${erro_campo_com_spaco}
     Should Contain                      ${mensagem_vazio_tipo_contrato.text}    ${erro_campo_vazio}
 
-Salvar dados preenchimento correto
+Salvar dados com preenchimento correto
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${nome_usuario}
     Input Text                          id = family_name                    ${date}
@@ -87,14 +87,14 @@ Buscar usuario criado
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y
     Input Text                          id = headers-search-name            ${date}
     ${element_buscar}=                  Execute JavaScript
-    ...                                 return document.querySelectorAll('div.table-head-search-container')[4]
+    ...                                 return document.querySelector('button.btn-ghost')
     Click Element                       ${element_buscar}
     Carregando
 
 Editar usuario criado
     Carregando
     ${element_editar}=                  Execute JavaScript
-    ...                                 return document.querySelectorAll('button:nth-child(1)')[2]
+    ...                                 return document.querySelector('button.action-button-table-primary')
     Click Element                       ${element_editar}
     Carregando
     Press Keys                          id = name                           Editado
