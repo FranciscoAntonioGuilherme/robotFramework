@@ -44,7 +44,7 @@ Tentar salvar sem dados preenchidos
     Should Contain                      ${mensagem_vazio_funcao.text}       ${erro_campo_com_spaco}
     Should Contain                      ${mensagem_vazio_tipo_contrato.text}    ${erro_campo_vazio}
 
-Salvar dados com preenchimento correto
+Salvar usuario com preenchimento correto
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${nome_usuario}
     Input Text                          id = family_name                    ${date}

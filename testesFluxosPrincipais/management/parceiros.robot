@@ -49,7 +49,7 @@ Tentar salvar sem dados preenchidos
     Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
     Element Text Should Be              class = top-bar-titulo              PARCEIROS
 
-Salvar dados com preenchimento correto
+Salvar parceiro com preenchimento correto
     parceiros.Clicar em novo
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${razao_social}${date}

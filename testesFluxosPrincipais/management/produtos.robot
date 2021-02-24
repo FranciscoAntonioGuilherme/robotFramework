@@ -38,7 +38,7 @@ Tentar salvar sem dados preenchidos
     Should Contain                      ${mensagem_vazio_embalagem.text}    ${erro_campo_vazio}
     Should Contain                      ${mensagem_vazio_estq_minimo.text}  ${erro_campo_vazio}
 
-Salvar dados com preenchimento correto
+Salvar produto com preenchimento correto
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     ${nome_produto}=                    Set Variable                        ${nome_produto}${date}
 
@@ -57,10 +57,10 @@ Salvar dados com preenchimento correto
     Input Text                          id = weight                         ${valor_medida}
     Select From List By Value           id = unit_measure_id                ${unidade}
     Input Text                          id = qtd_min                        ${estoque_min}
-    # Click Button                        Salvar
-    # Carregando
-    # Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
-    # Element Text Should Be              class = top-bar-titulo              PRODUTOS
+    Click Button                        Salvar
+    Carregando
+    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+    Element Text Should Be              class = top-bar-titulo              PRODUTOS
 
 Buscar produto criado
     ${date}=                            Get Current Date                    result_format=%d-%m
@@ -72,6 +72,8 @@ Buscar produto criado
 
 Editar produto criado
     Carregando
+    # Testar o Get WebElement em vez de JavaScript
+    # Documentação: https://robotframework.org/Selenium2Library/Selenium2Library.html#Locating%20elements
     ${element_editar}=                  Execute JavaScript
     ...                                 return document.querySelector('button.action-button-table-primary')
     Click Element                       ${element_editar}
@@ -82,23 +84,23 @@ Editar produto criado
     Carregando
     Wait Until Element Is Not Visible   class = modal-content               error=None
 
-    produtos.Buscar produto criado
+    # produtos.Buscar produto criado
 
-    ${nome}=                              Get Table Cell                    id = table-products-list  2   1
-    ${marca}=                             Get Table Cell                    id = table-products-list  2   2
-    ${valor_medida}=                      Get Table Cell                    id = table-products-list  2   3
-    ${unidade}=                           Get Table Cell                    id = table-products-list  2   4
-    ${estoque_min}=                       Get Table Cell                    id = table-products-list  2   5
-    ${categoria}=                         Get Table Cell                    id = table-products-list  2   6
-    ${subCategoria}=                      Get Table Cell                    id = table-products-list  2   7
+    # ${nome}=                              Get Table Cell                    id = table-products-list  2   1
+    # ${marca}=                             Get Table Cell                    id = table-products-list  2   2
+    # ${valor_medida}=                      Get Table Cell                    id = table-products-list  2   3
+    # ${unidade}=                           Get Table Cell                    id = table-products-list  2   4
+    # ${estoque_min}=                       Get Table Cell                    id = table-products-list  2   5
+    # ${categoria}=                         Get Table Cell                    id = table-products-list  2   6
+    # ${subCategoria}=                      Get Table Cell                    id = table-products-list  2   7
 
-    Log To Console      ${nome}
-    Log To Console      ${marca}
-    Log To Console      ${valor_medida}
-    Log To Console      ${unidade}
-    Log To Console      ${estoque_min}
-    Log To Console      ${categoria}
-    Log To Console      ${subCategoria}
+    # Log To Console      ${nome}
+    # Log To Console      ${marca}
+    # Log To Console      ${valor_medida}
+    # Log To Console      ${unidade}
+    # Log To Console      ${estoque_min}
+    # Log To Console      ${categoria}
+    # Log To Console      ${subCategoria}
 
 Excluir produto criado
     produtos.Buscar produto criado
