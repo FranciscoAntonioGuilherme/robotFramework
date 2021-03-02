@@ -44,14 +44,16 @@ Salvar produto com preenchimento correto
 
     Input Text                          id = name                           ${nome_produto}
     Input Text                          id = brand                          ${marca}
-    Input Text                          id = categories-mirror              ${categoria}
+    # Input Text                          id = categories-mirror              ${categoria}
+    Click Element                       id = categories-mirror
     Press Keys                          id = categories-mirror              DOWN
     Press Keys                          id = categories-mirror              ENTER
 
     Carregando
-    Select From List By Label           id = category_id                    ${subCategoria}
+    # Select From List By Label           id = category_id                    ${subCategoria}
 
-    Input Text                          id = package_id-mirror              ${embalagem}
+    # Input Text                          id = package_id-mirror              ${embalagem}
+    Click Element                       id = package_id-mirror
     Press Keys                          id = package_id-mirror              DOWN
     Press Keys                          id = package_id-mirror              ENTER
     Input Text                          id = weight                         ${valor_medida}
