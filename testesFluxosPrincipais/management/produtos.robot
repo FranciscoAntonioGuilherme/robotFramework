@@ -7,7 +7,7 @@ Library                                 DateTime
 ${nome_produto}                         Produto
 ${marca}                                RAV
 ${categoria}                            Limpeza
-${subCategoria}                         Cozinha
+${subCategoria}                         TesteSubCategoria
 ${embalagem}                            Lata
 ${valor_medida}                         1
 ${unidade}                              mL
@@ -37,8 +37,14 @@ Tentar salvar sem dados preenchidos
     Should Contain                      ${mensagem_vazio_categoria.text}    ${erro_campo_vazio}
     Should Contain                      ${mensagem_vazio_embalagem.text}    ${erro_campo_vazio}
     Should Contain                      ${mensagem_vazio_estq_minimo.text}  ${erro_campo_vazio}
+    Click Button                        Cancelar
+    Carregando
+    Wait Until Element Is Not Visible   class = modal-content               error=None
+    Element Text Should Be              class = top-bar-titulo              PRODUTOS
 
 Salvar produto com preenchimento correto
+    produtos.Clicar em novo
+
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     ${nome_produto}=                    Set Variable                        ${nome_produto}${date}
 
@@ -50,7 +56,18 @@ Salvar produto com preenchimento correto
     Press Keys                          id = categories-mirror              ENTER
 
     Carregando
-    # Select From List By Label           id = category_id                    ${subCategoria}
+
+    ${element_novo}=                    Execute JavaScript
+    ...                                 return document.getElementsByClassName('buttom-new-in-label')[1]
+    Click Element                       ${element_novo}    
+
+    Wait Until Element Is Visible       id = entity_name
+    Input Text                          id = entity_name                    ${subCategoria}
+
+    ${element_salvar}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll('button.ml-3')[1]
+    Click Element                       ${element_salvar}
+    Carregando
 
     # Input Text                          id = package_id-mirror              ${embalagem}
     Click Element                       id = package_id-mirror
@@ -61,7 +78,7 @@ Salvar produto com preenchimento correto
     Input Text                          id = qtd_min                        ${estoque_min}
     Click Button                        Salvar
     Carregando
-    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+    Wait Until Element Is Not Visible   class = modal-content               error=None
     Element Text Should Be              class = top-bar-titulo              PRODUTOS
 
 Buscar produto criado
@@ -110,4 +127,15 @@ Excluir produto criado
     ...                                 return document.getElementsByClassName('action-button-table-primary')[1]
     Click Element                       ${element_exluir}
     Click Button                        Sim
+    Carregando
+
+Excluir subCategoria criado em produto
+    Click Link                          Configurações
+    Click Link                          SUBCATEGORIA
+    Carregando
+
+    Input Text                          id = headers-search-name            ${subCategoria}
+    ${element_buscar}=                  Execute JavaScript
+    ...                                 return document.querySelector('button.btn-ghost')
+    Click Element                       ${element_buscar}
     Carregando
