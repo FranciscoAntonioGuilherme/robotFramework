@@ -4,7 +4,7 @@ Resource                                ../functions/carregando.robot
 Library                                 DateTime
 
 *** Variables ***
-${nascimento}                           01012000
+${nascimento}                           11012000
 ${telefone}                             85912345678
 ${funcao_usuario}                       Supervisor
 ${tipo_de_contrato}                     Contrato Temporário
@@ -50,9 +50,11 @@ Salvar usuario com preenchimento correto
     Input Text                          id = family_name                    ${date}
 
     FOR     ${i}    IN RANGE    ${nascimento}
+
         Exit For Loop If    ${i} == 8
         Press Keys                      id = birthday                       ${nascimento[${i}]}
         Press Keys                      id = birthday                       \ue004
+
     END
 
     Input Text                          id = cpf                            12345678901

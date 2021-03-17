@@ -76,13 +76,15 @@ Salvar parceiro com preenchimento correto
 
     END
 
-    Inserir Telefone                    id = commercial_phone               ${telefone_comercial}
+    # Inserir Telefone                    id = commercial_phone               ${telefone_comercial}
+    Wait Until Element Is Enabled       id = number
     Input Text                          id = number                         123
     Input Text                          id = observation                    ${observacao}
 
     Click Button                        Salvar
     Carregando
-    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
+    Wait Until Page Does Not Contain Element                                class = form-row
+    Carregando
     Element Text Should Be              class = top-bar-titulo              PARCEIROS
 
 Buscar parceiro criado

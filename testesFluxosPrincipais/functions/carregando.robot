@@ -7,3 +7,6 @@ Carregando
 
 Esperar carregar
     Wait Until Element Is Visible       carregando                          timeout=10
+
+zz
+    Wait Until Element Is Not Visible     carregando            timeout=60

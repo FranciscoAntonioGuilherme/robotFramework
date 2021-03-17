@@ -5,7 +5,7 @@ Library                                 DateTime
 
 *** Variables ***
 ${novoEstoque}                          Estoque
-${fazenda}                              Farm Kainan
+${fazenda}                              The good place
 
 ${erro_campo_vazio}                     Campo obrigatório
 
@@ -46,7 +46,8 @@ Salvar estoque com preenchimento correto
 
     Wait Until Element Is Not Visible   class = modal-content               error=None
     Element Text Should Be              class = top-bar-titulo              ESTOQUES
-
+    Reload Page
+    Carregando
     Page Should Contain                 ${novoEstoque}
 
     # Array.from(document.querySelectorAll('p')).find(el => el.textContent === 'Estoque 19022021')
