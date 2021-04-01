@@ -6,6 +6,11 @@ Resource                                ../functions/telefone.robot
 Library                                 DateTime
 
 *** Variables ***
+${btn_Adicionar}                        class = btn-create-page
+${btn_Buscar}                           id = btn-ghost table-head-action-button-btn
+
+${field_Search}                         id = headers-search-name
+
 ${razao_social}                         Teste Parceiro
 ${CNPJ_CPF}                             12345678901234
 ${insc.estadual}                        1234
@@ -23,10 +28,11 @@ Clicar em parceiros
     Click Link                          Parceiros
     Carregando
     Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
-    Element Text Should Be              class = top-bar-titulo              PARCEIROS
+    # Element Text Should Be              class = top-bar-titulo              PARCEIROS
+    Element Text Should Be              class = title-container-location    PARCEIROS
 
 Clicar em novo
-    CLick Button                        NOVO
+    CLick Button                       ${btn_Adicionar}
     Carregando
 
 Tentar salvar sem dados preenchidos
@@ -47,7 +53,7 @@ Tentar salvar sem dados preenchidos
     Click Button                        Cancelar
     Carregando
     Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
-    Element Text Should Be              class = top-bar-titulo              PARCEIROS
+    Element Text Should Be              class = title-container-location    PARCEIROS
 
 Salvar parceiro com preenchimento correto
     parceiros.Clicar em novo
@@ -85,14 +91,17 @@ Salvar parceiro com preenchimento correto
     Carregando
     Wait Until Page Does Not Contain Element                                class = form-row
     Carregando
-    Element Text Should Be              class = top-bar-titulo              PARCEIROS
+    Element Text Should Be              class = title-container-location    PARCEIROS
 
 Buscar parceiro criado
     ${date}=                            Get Current Date                    result_format=%d-%m
-    Input Text                          id = headers-search-name            ${date}
-    ${element_buscar}=                  Execute JavaScript
-    ...                                 return document.querySelector('button.btn-ghost')
-    Click Element                       ${element_buscar}
+
+    ${btn_Lupa}                         Execute JavaScript
+    ...                                 return document.querySelectorAll('.head-table-action-icon')
+    Click Element                       ${btn_Lupa}
+
+    Input Text                          ${field_Search}                     ${date}
+    Click Button                        ${btn_Buscar}
     Carregando
 
 Editar parceiro criado
@@ -106,7 +115,7 @@ Editar parceiro criado
     Click Button                        Salvar
     Carregando
     Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
-    Element Text Should Be              class = top-bar-titulo              PARCEIROS
+    Element Text Should Be              class = title-container-location    PARCEIROS
 
 Excluir parceiro criado
     parceiros.Buscar parceiro criado

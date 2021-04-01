@@ -4,6 +4,11 @@ Resource                                ../functions/carregando.robot
 Library                                 DateTime
 
 *** Variables ***
+${btn_Adicionar}                        class = btn-create-page
+${btn_Buscar}                           id = btn-ghost table-head-action-button-btn
+
+${field_Search}                         id = headers-search-name
+
 ${nascimento}                           11012000
 ${telefone}                             85912345678
 ${funcao_usuario}                       Supervisor
@@ -20,7 +25,8 @@ Clicar em usuarios
     Carregando
 
 Clicar em novo
-    CLick Button                        NOVO
+
+    CLick Button                       ${btn_Adicionar}
     Carregando
 
 Tentar salvar sem dados preenchidos
@@ -83,14 +89,18 @@ Salvar usuario com preenchimento correto
     Carregando
     Carregando
     Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
-    Element Text Should Be              class = top-bar-titulo              USUÁRIOS
+    # Element Text Should Be              class = top-bar-titulo              USUÁRIOS
+    Element Text Should Be              class = title-container-location    USUÁRIOS
 
 Buscar usuario criado
     ${date}=                            Get Current Date                    result_format=%d-%m-%Y
-    Input Text                          id = headers-search-name            ${date}
-    ${element_buscar}=                  Execute JavaScript
-    ...                                 return document.querySelector('button.btn-ghost')
-    Click Element                       ${element_buscar}
+
+    ${btn_Lupa}                         Execute JavaScript
+    ...                                 return document.querySelectorAll('.head-table-action-icon')
+    Click Element                       ${btn_Lupa}
+
+    Input Text                          ${field_Search}                     ${date}
+    Click Button                        ${btn_Buscar}
     Carregando
 
 Editar usuario criado
@@ -105,7 +115,8 @@ Editar usuario criado
     Click Button                        Salvar
     Carregando
     Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
-    Element Text Should Be              class = top-bar-titulo              USUÁRIOS
+    # Element Text Should Be              class = top-bar-titulo              USUÁRIOS
+    Element Text Should Be              class = title-container-location    USUÁRIOS
 
 Excluir usuario criado
     usuarios.Buscar usuario criado

@@ -4,6 +4,9 @@ Resource                                ../functions/carregando.robot
 Library                                 DateTime
 
 *** Variables ***
+${btn_Adicionar}                        class = btn-create-page
+${btn_Buscar}                           id = btn-ghost table-head-action-button-btn
+
 ${nome_produto}                         Produto
 ${marca}                                RAV
 ${categoria}                            Limpeza
@@ -20,10 +23,10 @@ Clicar em produtos
     Click Link                          Produtos
     Carregando
     Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
-    Element Text Should Be              class = top-bar-titulo              PRODUTOS
+    Element Text Should Be              class = title-container-location    PRODUTOS
 
 Clicar em novo
-    CLick Button                        NOVO
+    CLick Button                       ${btn_Adicionar}
 
 Tentar salvar sem dados preenchidos
     Click Button                        Salvar
@@ -40,7 +43,7 @@ Tentar salvar sem dados preenchidos
     Click Button                        Cancelar
     Carregando
     Wait Until Element Is Not Visible   class = modal-content               error=None
-    Element Text Should Be              class = top-bar-titulo              PRODUTOS
+    Element Text Should Be              class = title-container-location    PRODUTOS
 
 Salvar produto com preenchimento correto
     produtos.Clicar em novo
@@ -79,14 +82,17 @@ Salvar produto com preenchimento correto
     Click Button                        Salvar
     Carregando
     Wait Until Element Is Not Visible   class = modal-content               error=None
-    Element Text Should Be              class = top-bar-titulo              PRODUTOS
+    Element Text Should Be              class = title-container-location    PRODUTOS
 
 Buscar produto criado
     ${date}=                            Get Current Date                    result_format=%d-%m
-    Input Text                          id = headers-search-name            ${date}
-    ${element_buscar}=                  Execute JavaScript
-    ...                                 return document.querySelector('button.btn-ghost')
-    Click Element                       ${element_buscar}
+
+    ${btn_Lupa}                         Execute JavaScript
+    ...                                 return document.querySelectorAll('.head-table-action-icon')
+    Click Element                       ${btn_Lupa}
+
+    Input Text                          ${field_Search}                     ${date}
+    Click Button                        ${btn_Buscar}
     Carregando
 
 Editar produto criado
@@ -100,8 +106,10 @@ Editar produto criado
     Press Keys                          id = name                           Editado
     Press Keys                          id = brand                          Editado
     Click Button                        Salvar
+    # Esperar carregar
     Carregando
     Wait Until Element Is Not Visible   class = modal-content               error=None
+    Carregando
 
     # produtos.Buscar produto criado
 
@@ -122,7 +130,6 @@ Editar produto criado
     # Log To Console      ${subCategoria}
 
 Excluir produto criado
-    produtos.Buscar produto criado
     ${element_exluir}=                  Execute JavaScript
     ...                                 return document.getElementsByClassName('action-button-table-primary')[1]
     Click Element                       ${element_exluir}
@@ -134,8 +141,13 @@ Excluir subCategoria criado em produto
     Click Link                          SUBCATEGORIA
     Carregando
 
+    # Capture Page ScreenShot
+    ${btn_Lupa}                         Execute JavaScript
+    ...                                 return document.querySelectorAll('.head-table-action-icon')
+    Click Element                       ${btn_Lupa}
+
     Input Text                          id = headers-search-name            ${subCategoria}
-    ${element_buscar}=                  Execute JavaScript
-    ...                                 return document.querySelector('button.btn-ghost')
-    Click Element                       ${element_buscar}
+
+    Click Button                        ${btn_Buscar}
+
     Carregando
