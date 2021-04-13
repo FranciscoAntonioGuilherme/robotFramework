@@ -48,7 +48,7 @@ Tentar salvar sem dados preenchidos
 Salvar produto com preenchimento correto
     produtos.Clicar em novo
 
-    ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
+    # ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     ${nome_produto}=                    Set Variable                        ${nome_produto}${date}
 
     Input Text                          id = name                           ${nome_produto}
@@ -85,7 +85,7 @@ Salvar produto com preenchimento correto
     Element Text Should Be              class = title-container-location    PRODUTOS
 
 Buscar produto criado
-    ${date}=                            Get Current Date                    result_format=%d-%m
+    # ${date}=                            Get Current Date                    result_format=%d-%m
 
     ${btn_Lupa}                         Execute JavaScript
     ...                                 return document.querySelectorAll('.head-table-action-icon')
@@ -137,7 +137,10 @@ Excluir produto criado
     Carregando
 
 Excluir subCategoria criado em produto
-    Click Link                          Configurações
+    ${Configuracoes}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll(".label-sidebar")[6]
+    Click Element                       ${Configuracoes}
+
     Click Link                          SUBCATEGORIA
     Carregando
 
@@ -149,5 +152,11 @@ Excluir subCategoria criado em produto
     Input Text                          id = headers-search-name            ${subCategoria}
 
     Click Button                        ${btn_Buscar}
+    Carregando
 
+    ${element_exluir}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll(".button-generic-table")[1]
+    Click Element                       ${element_exluir}   
+
+    Click Button                        Sim
     Carregando

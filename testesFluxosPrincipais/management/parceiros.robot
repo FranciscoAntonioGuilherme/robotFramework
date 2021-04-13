@@ -57,7 +57,7 @@ Tentar salvar sem dados preenchidos
 
 Salvar parceiro com preenchimento correto
     parceiros.Clicar em novo
-    ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
+    # ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${razao_social}${date}
     Input Text                          id = fantasy_name                   ${date}
     
@@ -94,7 +94,7 @@ Salvar parceiro com preenchimento correto
     Element Text Should Be              class = title-container-location    PARCEIROS
 
 Buscar parceiro criado
-    ${date}=                            Get Current Date                    result_format=%d-%m
+    # ${date}=                            Get Current Date                    result_format=%d-%m
 
     ${btn_Lupa}                         Execute JavaScript
     ...                                 return document.querySelectorAll('.head-table-action-icon')

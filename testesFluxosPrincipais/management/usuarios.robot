@@ -51,7 +51,7 @@ Tentar salvar sem dados preenchidos
     Should Contain                      ${mensagem_vazio_tipo_contrato.text}    ${erro_campo_vazio}
 
 Salvar usuario com preenchimento correto
-    ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
+    # ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${nome_usuario}
     Input Text                          id = family_name                    ${date}
 
@@ -93,7 +93,7 @@ Salvar usuario com preenchimento correto
     Element Text Should Be              class = title-container-location    USUÁRIOS
 
 Buscar usuario criado
-    ${date}=                            Get Current Date                    result_format=%d-%m-%Y
+    # ${date}=                            Get Current Date                    result_format=%d-%m-%Y
 
     ${btn_Lupa}                         Execute JavaScript
     ...                                 return document.querySelectorAll('.head-table-action-icon')
