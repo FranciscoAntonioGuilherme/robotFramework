@@ -110,7 +110,8 @@ Editar parceiro criado
     ...                                 return document.querySelector('button.action-button-table-primary')
     Click Element                       ${element_editar}
     Carregando
-    Press Keys                          id = name                           Editado
+    Clear Element Text                  id = name
+    Press Keys                          id = name                           ${razao_social}${date}Editado
     Press Keys                          id = observation                    Observação editada.
     Click Button                        Salvar
     Carregando
