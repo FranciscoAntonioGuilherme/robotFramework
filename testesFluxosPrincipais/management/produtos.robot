@@ -26,7 +26,8 @@ Clicar em produtos
     Element Text Should Be              class = title-container-location    PRODUTOS
 
 Clicar em novo
-    CLick Button                       ${btn_Adicionar}
+    CLick Button                        ${btn_Adicionar}
+    Wait Until Element Is Visible       class = modal-content
 
 Tentar salvar sem dados preenchidos
     Click Button                        Salvar
@@ -51,6 +52,7 @@ Salvar produto com preenchimento correto
     # ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     ${nome_produto}=                    Set Variable                        ${nome_produto}${date}
 
+    Wait Until Element Is Visible       class = modal-content               error=None
     Input Text                          id = name                           ${nome_produto}
     Input Text                          id = brand                          ${marca}
     # Input Text                          id = categories-mirror              ${categoria}

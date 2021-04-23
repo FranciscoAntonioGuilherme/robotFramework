@@ -74,7 +74,7 @@ Salvar usuario com preenchimento correto
         Press Keys                      id = phone_number                   \ue004
     END
 
-    Select From List By Index           id = permission                     2
+    Select From List By Index           id = permission                     1
     Select From List By Value           id = role                           ${funcao_usuario}
     Select From List By Value           id = contract_type                  ${tipo_de_contrato}
 

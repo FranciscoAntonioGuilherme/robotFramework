@@ -1,13 +1,12 @@
 *** Settings ***
-Documentation                           CATEGORIA
+Documentation                           SUBCATEGORIA
 Resource                                ../functions/carregando.robot
 Library                                 DateTime
 
 *** Variables ***
 ${btn_Adicionar}                        class = btn-create-page
-#${btn_Buscar}                           id = btn-ghost table-head-action-button-btn
 
-${nome_categoria}                       Categoria
+${nome_subcategoria}                    SubCategoria
 
 ${erro_campo_vazio}                     Campo obrigatório
 
@@ -18,29 +17,37 @@ Clicar em configurações
     ...                                 return document.querySelectorAll(".label-sidebar")[6]
     Click Element                       ${Configuracoes}
 
-Clicar em categoria
-    ${element_categoria}                Execute JavaScript
+Clicar em subcategoria
+
+    ${element_subItem}                  Execute JavaScript
     ...                                 return document.querySelectorAll('.subItem')
 
-    ${categ_present}=                   Run Keyword And Return Status
-    ...                                 Element Should Be Visible           ${element_categoria}
+    ${subItem_present}=                 Run Keyword And Return Status
+    ...                                 Element Should Be Visible           ${element_subItem}
 
-    Run Keyword Unless                  ${categ_present}                    Clicar em configurações
-    Click Link                          CATEGORIA
+    Run Keyword Unless                  ${subItem_present}                  subcategoria.Clicar em configurações
+    Click Link                          SUBCATEGORIA
     Carregando
 
 Tentar salvar sem dados preenchidos
     CLick Button                        ${btn_Adicionar}    
     Click Button                        Salvar
     ${mensagem_vazio_nome}=             Get webElement                      name = invalid-feedback-name
+    ${mensagem_vazio_categoria}=        Get webElement                      name = invalid-feedback-category_id
     Should Contain                      ${mensagem_vazio_nome.text}         ${erro_campo_vazio}
+    Should Contain                      ${mensagem_vazio_categoria.text}    ${erro_campo_vazio}
 
-Adicionar nova categoria
-    Input Text                          id = name                           ${nome_categoria}${SPACE}${date}
+Adicionar nova subcategoria
+    Input Text                          id = name                           ${nome_subcategoria}${SPACE}${date}
+
+    Click Element                       id = category_id-mirror
+    Press Keys                          id = category_id-mirror             DOWN
+    Press Keys                          id = category_id-mirror             ENTER
+
     Click Button                        Salvar
     Carregando
 
-Buscar categoria criada
+Buscar subcategoria criada
     ${btn_Lupa}                         Execute JavaScript
     ...                                 return document.querySelectorAll('.head-table-action-icon')
     Click Element                       ${btn_Lupa}
@@ -49,17 +56,22 @@ Buscar categoria criada
     Click Button                        ${btn_Buscar}
     Carregando
 
-Editar categoria
+Editar subcategoria
     ${element_editar}=                  Execute JavaScript
     ...                                 return document.querySelector('button.action-button-table-primary')
     Click Element                       ${element_editar}
 
     Wait Until Element Is Visible       id = name
     Press Keys                          id = name                           ${SPACE}Editado
+
+    Click Element                       id = category_id-mirror
+    Press Keys                          id = category_id-mirror             DOWN
+    Press Keys                          id = category_id-mirror             ENTER
+
     Click Button                        Salvar
     Carregando
 
-Excluir categoria criada
+Excluir subcategoria criada
     Click Button                        ${btn_Buscar}
     Carregando
 

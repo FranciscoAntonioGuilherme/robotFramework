@@ -10,3 +10,5 @@ Clicar em pecuaria
 
     Run Keyword if      '${url}'=='${Home Page}'        Click Link                          Pecuária
     ...                     ELSE        Click Element        class = pecuaria
+
+    Carregando
