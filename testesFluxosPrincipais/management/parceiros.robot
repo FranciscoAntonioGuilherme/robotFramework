@@ -21,77 +21,59 @@ ${cep}                                  01001000
 ${observacao}                           lorem ipsum adipiscing vitae proin sagittis nisl
 
 ${erro_campo_vazio}                     Campo obrigatório
+${erro_campo_invalido}                     Campo inválido
 ${erro_campo_email}                     Formatação de e-mail incorreta
 
 *** Keywords ***
 Clicar em parceiros
     Click Link                          Parceiros
     Carregando
-    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
-    # Element Text Should Be              class = top-bar-titulo              PARCEIROS
-    Element Text Should Be              class = title-container-location    PARCEIROS
+    Wait Until Element Is Visible       class = title-container             timeout=10
+    Element Text Should Be              class = title-container             PARCEIROS
 
 Clicar em novo
     CLick Button                       ${btn_Adicionar}
     Carregando
 
 Tentar salvar sem dados preenchidos
-    Click Button                        Salvar
+    # Botão SALVAR
+    Click Button                        class = btn-primario
     ${mensagem_vazio_razao_social}=     Get webElement                      name = invalid-feedback-name
-    ${mensagem_vazio_tipo}=             Get webElement                      name = invalid-feedback-partner_type_id
     ${mensagem_vazio_cpf_cnpj}=         Get webElement                      name = invalid-feedback-cpf_cnpj
+    ${mensagem_vazio_tipo}=             Get webElement                      name = invalid-feedback-partner_type_id
     ${mensagem_vazio_categoria}=        Get webElement                      name = invalid-feedback-category_id
     ${mensagem_vazio_email}=            Get webElement                      name = invalid-feedback-email
     ${mensagem_vazio_cell_phone}=       Get webElement                      name = invalid-feedback-cell_phone
+    ${mensagem_vazio_CEP}=              Get webElement                      name = invalid-feedback-zipcode
     Should Contain                      ${mensagem_vazio_razao_social.text}     ${erro_campo_vazio}
-    Should Contain                      ${mensagem_vazio_tipo.text}         ${erro_campo_vazio}
-    Should Contain                      ${mensagem_vazio_cpf_cnpj.text}     ${erro_campo_vazio}
-    Should Contain                      ${mensagem_vazio_categoria.text}    ${erro_campo_vazio}
-    Should Contain                      ${mensagem_vazio_cell_phone.text}   ${erro_campo_vazio}
+    Should Contain                      ${mensagem_vazio_cpf_cnpj.text}     ${erro_campo_invalido}
+    Should Contain                      ${mensagem_vazio_tipo.text}         ${erro_campo_invalido}
+    Should Contain                      ${mensagem_vazio_categoria.text}    ${erro_campo_invalido}
     Should Contain                      ${mensagem_vazio_email.text}        ${erro_campo_email}
     Should Contain                      ${mensagem_vazio_cell_phone.text}   ${erro_campo_vazio}
-    Click Button                        Cancelar
-    Carregando
-    Wait Until Element Is Visible       class = top-bar-titulo              timeout=10
-    Element Text Should Be              class = title-container-location    PARCEIROS
+    Should Contain                      ${mensagem_vazio_CEP.text}          ${erro_campo_vazio}
 
 Salvar parceiro com preenchimento correto
-    parceiros.Clicar em novo
-    # ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     Input Text                          id = name                           ${razao_social}${date}
     Input Text                          id = fantasy_name                   ${date}
-    
-    Press Keys                          id = partner_type_id-mirror         DOWN
-    Press Keys                          id = partner_type_id-mirror         ENTER
     Input Text                          id = cpf_cnpj                       ${CNPJ_CPF}
     Input Text                          id = state_registration             ${insc.estadual}
-    
-    Click Element                       id = category_id-mirror
-    Press Keys                          id = category_id-mirror             DOWN
-    Press Keys                          id = category_id-mirror             ENTER
-
+    Select From List By Label           id = partner_type_id                Veterinário
+    Select From List By Label           id = category_id                    Animais Vivos
     Input Text                          id = email                          ${date}@gmail.com
-    Inserir Celular                     id = cell_phone                     ${celular}
-    Inserir Telefone                    id = residential_phone              ${telefone_residencial}
-
-    FOR     ${i}    IN RANGE    8
-
-        Exit For Loop If                ${i} == 8
-        Press Keys                      id = zipcode                        ${cep[${i}]}
-        Press Keys                      id = zipcode                        \ue004
-
-    END
-
-    # Inserir Telefone                    id = commercial_phone               ${telefone_comercial}
-    Wait Until Element Is Enabled       id = number
-    Input Text                          id = number                         123
-    Input Text                          id = observation                    ${observacao}
-
-    Click Button                        Salvar
+    Press Keys                          id = cell_phone                     ${celular}
+    Press Keys                          id = residential_phone              ${telefone_residencial}
+    Press Keys                          id = commercial_phone               ${telefone_comercial}
+    Press Keys                          id = zipcode                        ${cep}
+    Press Keys                          id = number                         123
+    Press Keys                          id = observation                    ${observacao}
+    # Botão SALVAR
+    Click Button                        class = btn-primario
     Carregando
-    Wait Until Page Does Not Contain Element                                class = form-row
-    Carregando
-    Element Text Should Be              class = title-container-location    PARCEIROS
+    # Wait Until Page Does Not Contain Element                                class = form-row
+    # Carregando
+    # Element Text Should Be              class = title-container-location    PARCEIROS
+
 
 Buscar parceiro criado
     # ${date}=                            Get Current Date                    result_format=%d-%m

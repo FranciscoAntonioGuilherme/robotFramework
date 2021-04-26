@@ -49,42 +49,47 @@ Tentar salvar sem dados preenchidos
 Salvar produto com preenchimento correto
     produtos.Clicar em novo
 
-    # ${date}=                            Get Current Date                    result_format=%d-%m-%Y-%S
     ${nome_produto}=                    Set Variable                        ${nome_produto}${date}
 
     Wait Until Element Is Visible       class = modal-content               error=None
     Input Text                          id = name                           ${nome_produto}
     Input Text                          id = brand                          ${marca}
-    # Input Text                          id = categories-mirror              ${categoria}
     Click Element                       id = categories-mirror
-    Press Keys                          id = categories-mirror              DOWN
-    Press Keys                          id = categories-mirror              ENTER
+    ${categoria_produtos}=              Execute JavaScript
+    ...                                 return document.querySelectorAll('#div-options > ul')[0].children[3]
+    Click Element                       ${categoria_produtos}
 
-    Carregando
 
-    ${element_novo}=                    Execute JavaScript
-    ...                                 return document.getElementsByClassName('buttom-new-in-label')[1]
-    Click Element                       ${element_novo}    
 
-    Wait Until Element Is Visible       id = entity_name
-    Input Text                          id = entity_name                    ${subCategoria}
+    # Click Element                       id = categories-mirror
+    # Press Keys                          id = categories-mirror              DOWN
+    # Press Keys                          id = categories-mirror              ENTER
 
-    ${element_salvar}=                  Execute JavaScript
-    ...                                 return document.querySelectorAll('button.ml-3')[1]
-    Click Element                       ${element_salvar}
-    Carregando
+    # Carregando
 
-    # Input Text                          id = package_id-mirror              ${embalagem}
-    Click Element                       id = package_id-mirror
-    Press Keys                          id = package_id-mirror              DOWN
-    Press Keys                          id = package_id-mirror              ENTER
-    Input Text                          id = weight                         ${valor_medida}
-    Select From List By Value           id = unit_measure_id                ${unidade}
-    Input Text                          id = qtd_min                        ${estoque_min}
-    Click Button                        Salvar
-    Carregando
-    Wait Until Element Is Not Visible   class = modal-content               error=None
-    Element Text Should Be              class = title-container-location    PRODUTOS
+    # ${element_novo}=                    Execute JavaScript
+    # ...                                 return document.getElementsByClassName('buttom-new-in-label')[1]
+    # Click Element                       ${element_novo}    
+
+    # Wait Until Element Is Visible       id = entity_name
+    # Input Text                          id = entity_name                    ${subCategoria}
+
+    # ${element_salvar}=                  Execute JavaScript
+    # ...                                 return document.querySelectorAll('button.ml-3')[1]
+    # Click Element                       ${element_salvar}
+    # Carregando
+
+    # # Input Text                          id = package_id-mirror              ${embalagem}
+    # Click Element                       id = package_id-mirror
+    # Press Keys                          id = package_id-mirror              DOWN
+    # Press Keys                          id = package_id-mirror              ENTER
+    # Input Text                          id = weight                         ${valor_medida}
+    # Select From List By Value           id = unit_measure_id                ${unidade}
+    # Input Text                          id = qtd_min                        ${estoque_min}
+    # Click Button                        Salvar
+    # Carregando
+    # Wait Until Element Is Not Visible   class = modal-content               error=None
+    # Element Text Should Be              class = title-container-location    PRODUTOS
 
 Buscar produto criado
     # ${date}=                            Get Current Date                    result_format=%d-%m
