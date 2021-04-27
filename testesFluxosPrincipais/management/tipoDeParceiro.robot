@@ -6,7 +6,7 @@ Library                                 DateTime
 *** Variables ***
 ${btn_Adicionar}                        class = btn-create-page
 
-${nome_tipoDeParceiro}                  SubCategoria
+${nome_tipoDeParceiro}                  Freelancer 
 
 ${erro_campo_vazio}                     Campo obrigatório
 
@@ -20,7 +20,7 @@ Clicar em configurações
 Clicar em tipo de parceiro
 
     ${element_subItem}                  Execute JavaScript
-    ...                                 return document.querySelectorAll('.subItem')
+    ...                                 return document.querySelectorAll('.item-subItem')[2]
 
     ${subItem_present}=                 Run Keyword And Return Status
     ...                                 Element Should Be Visible           ${element_subItem}
@@ -31,6 +31,40 @@ Clicar em tipo de parceiro
 
 Tentar salvar sem dados preenchidos
     CLick Button                        ${btn_Adicionar}
+    Wait Until Element Is Visible       id = name
     Click Button                        Salvar
     ${mensagem_vazio_nome}=             Get webElement                      name = invalid-feedback-name
     Should Contain                      ${mensagem_vazio_nome.text}         ${erro_campo_vazio}
+
+Adicionar novo tipo de parceiro
+    Input Text                          id = name                           ${nome_tipoDeParceiro}${SPACE}${date}
+    Click Button                        Salvar
+    Carregando
+
+Buscar tipo de parceiro
+    Carregando
+    Click Element                       class = head-table-action-icon
+    Input Text                          ${field_Search}                     ${date}
+    Click Button                        ${btn_Buscar}
+    Carregando
+
+Editar tipo de parceiro
+    ${element_editar}=                  Execute JavaScript
+    ...                                 return document.querySelector('button.action-button-table-primary')
+    Click Element                       ${element_editar}
+
+    Wait Until Element Is Visible       id = name
+    Press Keys                          id = name                           ${SPACE}Editado
+    Click Button                        Salvar
+    Carregando
+
+Excluir tipo de parceiro criado
+    Click Button                        ${btn_Buscar}
+    Carregando
+
+    ${element_exluir}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll(".button-generic-table")[1]
+    Click Element                       ${element_exluir}   
+
+    Click Button                        Sim
+    Carregando

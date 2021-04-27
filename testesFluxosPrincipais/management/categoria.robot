@@ -12,7 +12,6 @@ ${nome_categoria}                       Categoria
 ${erro_campo_vazio}                     Campo obrigatório
 
 *** Keywords ***
-
 Clicar em configurações
     ${Configuracoes}=                   Execute JavaScript
     ...                                 return document.querySelectorAll(".label-sidebar")[6]
@@ -20,12 +19,12 @@ Clicar em configurações
 
 Clicar em categoria
     ${element_categoria}                Execute JavaScript
-    ...                                 return document.querySelectorAll('.subItem')
+    ...                                 return document.querySelectorAll('.item-subItem')[0]
 
     ${categ_present}=                   Run Keyword And Return Status
     ...                                 Element Should Be Visible           ${element_categoria}
 
-    Run Keyword Unless                  ${categ_present}                    Clicar em configurações
+    Run Keyword Unless                  ${categ_present}                    categoria.Clicar em configurações
     Click Link                          CATEGORIA
     Carregando
 
@@ -41,10 +40,7 @@ Adicionar nova categoria
     Carregando
 
 Buscar categoria criada
-    ${btn_Lupa}                         Execute JavaScript
-    ...                                 return document.querySelectorAll('.head-table-action-icon')
-    Click Element                       ${btn_Lupa}
-
+    Click Element                       class = head-table-action-icon
     Input Text                          ${field_Search}                     ${date}
     Click Button                        ${btn_Buscar}
     Carregando

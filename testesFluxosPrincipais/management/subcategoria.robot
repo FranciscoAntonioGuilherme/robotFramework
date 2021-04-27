@@ -20,7 +20,7 @@ Clicar em configurações
 Clicar em subcategoria
 
     ${element_subItem}                  Execute JavaScript
-    ...                                 return document.querySelectorAll('.subItem')
+    ...                                 return document.querySelectorAll('.item-subItem')[1]
 
     ${subItem_present}=                 Run Keyword And Return Status
     ...                                 Element Should Be Visible           ${element_subItem}
@@ -48,10 +48,7 @@ Adicionar nova subcategoria
     Carregando
 
 Buscar subcategoria criada
-    ${btn_Lupa}                         Execute JavaScript
-    ...                                 return document.querySelectorAll('.head-table-action-icon')
-    Click Element                       ${btn_Lupa}
-
+    Click Element                       class = head-table-action-icon
     Input Text                          ${field_Search}                     ${date}
     Click Button                        ${btn_Buscar}
     Carregando

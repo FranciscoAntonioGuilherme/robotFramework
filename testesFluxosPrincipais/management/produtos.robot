@@ -58,46 +58,41 @@ Salvar produto com preenchimento correto
     ${categoria_produtos}=              Execute JavaScript
     ...                                 return document.querySelectorAll('#div-options > ul')[0].children[3]
     Click Element                       ${categoria_produtos}
+    Carregando
 
+    ${element_novo}=                    Execute JavaScript
+    ...                                 return document.getElementsByClassName('buttom-new-in-label')[1]
+    Click Element                       ${element_novo}
 
+    Wait Until Element Is Visible       id = entity_name
+    Input Text                          id = entity_name                    ${subCategoria}
 
-    # Click Element                       id = categories-mirror
-    # Press Keys                          id = categories-mirror              DOWN
-    # Press Keys                          id = categories-mirror              ENTER
+    ${element_salvar}=                  Execute JavaScript
+    ...                                 return document.querySelectorAll('button.ml-3')[1]
+    Click Element                       ${element_salvar}
+    Carregando
 
-    # Carregando
+    Click Element                       id = package_id-mirror
+    ${categoria_embalagem}=             Execute JavaScript
+    ...                                 return document.querySelectorAll('#div-options > ul')[1].children[3]
+    Click Element                       ${categoria_embalagem}
 
-    # ${element_novo}=                    Execute JavaScript
-    # ...                                 return document.getElementsByClassName('buttom-new-in-label')[1]
-    # Click Element                       ${element_novo}    
-
-    # Wait Until Element Is Visible       id = entity_name
-    # Input Text                          id = entity_name                    ${subCategoria}
-
-    # ${element_salvar}=                  Execute JavaScript
-    # ...                                 return document.querySelectorAll('button.ml-3')[1]
-    # Click Element                       ${element_salvar}
-    # Carregando
-
-    # # Input Text                          id = package_id-mirror              ${embalagem}
-    # Click Element                       id = package_id-mirror
-    # Press Keys                          id = package_id-mirror              DOWN
-    # Press Keys                          id = package_id-mirror              ENTER
-    # Input Text                          id = weight                         ${valor_medida}
-    # Select From List By Value           id = unit_measure_id                ${unidade}
-    # Input Text                          id = qtd_min                        ${estoque_min}
-    # Click Button                        Salvar
-    # Carregando
-    # Wait Until Element Is Not Visible   class = modal-content               error=None
-    # Element Text Should Be              class = title-container-location    PRODUTOS
+    Input Text                          id = weight                         ${valor_medida}
+    Select From List By Value           id = unit_measure_id                ${unidade}
+    Input Text                          id = qtd_min                        ${estoque_min}
+    Click Button                        Salvar
+    Carregando
+    Wait Until Element Is Not Visible   class = modal-content               error=None
+    Element Text Should Be              class = title-container-location    PRODUTOS
 
 Buscar produto criado
     # ${date}=                            Get Current Date                    result_format=%d-%m
 
-    ${btn_Lupa}                         Execute JavaScript
-    ...                                 return document.querySelectorAll('.head-table-action-icon')
-    Click Element                       ${btn_Lupa}
+    # ${btn_Lupa}                         Execute JavaScript
+    # ...                                 return document.querySelectorAll('.head-table-action-icon')
+    # Click Element                       ${btn_Lupa}
 
+    Click Element                       class = head-table-action-icon
     Input Text                          ${field_Search}                     ${date}
     Click Button                        ${btn_Buscar}
     Carregando
@@ -151,13 +146,8 @@ Excluir subCategoria criado em produto
     Click Link                          SUBCATEGORIA
     Carregando
 
-    # Capture Page ScreenShot
-    ${btn_Lupa}                         Execute JavaScript
-    ...                                 return document.querySelectorAll('.head-table-action-icon')
-    Click Element                       ${btn_Lupa}
-
+    Click Element                       class = head-table-action-icon
     Input Text                          id = headers-search-name            ${subCategoria}
-
     Click Button                        ${btn_Buscar}
     Carregando
 

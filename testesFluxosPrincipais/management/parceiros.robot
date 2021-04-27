@@ -76,12 +76,7 @@ Salvar parceiro com preenchimento correto
 
 
 Buscar parceiro criado
-    # ${date}=                            Get Current Date                    result_format=%d-%m
-
-    ${btn_Lupa}                         Execute JavaScript
-    ...                                 return document.querySelectorAll('.head-table-action-icon')
-    Click Element                       ${btn_Lupa}
-
+    Click Element                       class = head-table-action-icon
     Input Text                          ${field_Search}                     ${date}
     Click Button                        ${btn_Buscar}
     Carregando
