@@ -12,3 +12,5 @@ Clicar em pecuaria
     ...                     ELSE        Click Element        class = pecuaria
 
     Carregando
+    # Esperar carregar
+    # Carregando
