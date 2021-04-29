@@ -63,8 +63,8 @@ Salvar usuario com preenchimento correto
     Input Text                          id = password                       12345678
     Input Text                          id = confirm_password               12345678
     Select From List By Index           id = permission                     1
-    Select From List By Value           id = role                           ${funcao_usuario}
-    Select From List By Value           id = contract_type                  ${tipo_de_contrato}
+    Select From List By Label           id = role                           ${funcao_usuario}
+    Select From List By Label           id = contract_type                  ${tipo_de_contrato}
     Click Element                       id = projects
     Click Element                       id = form-basic-checkbox-check_0
     Click Element                       class = generic-template-form
