@@ -107,5 +107,6 @@ Excluir usuario criado
     ${element_exluir}=                  Execute JavaScript
     ...                                 return document.querySelectorAll('button:nth-child(2)')[0]
     Click Element                       ${element_exluir}
-    Click Button                        Sim
+    # Click Button                        Sim
+    Click Button                        class = btn-primario.ml-3
     Carregando
